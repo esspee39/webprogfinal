@@ -12,6 +12,10 @@
   list-style-type: none;
 }
 
+.boldlist{
+  font-weight: bold;
+}
+
 .MonA {
   float: left;
 }

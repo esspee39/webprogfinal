@@ -94,7 +94,7 @@ function App(){
   const handleButton = (e) => {
     e.preventDefault();
     updateData();
-    console.log("BUTTON PUSHED");
+    console.log("Move data fetched!");
   };
 
   const handleChangeB = (e) => {
@@ -135,12 +135,7 @@ function App(){
       var typeList = [];
       for(let i = 0; i < dataA.moves.length; i++){
         moveIndex = i;
-        console.log("moveIndex updated to:");
-        console.log(moveIndex);
-        console.log(dataA.moves[i].move.name);
         moveURL = dataA.moves[i].move.url;
-        console.log("moveURL updated to:");
-        console.log(moveURL);
         moveList.push(dataA.moves[i].move.name);
         URLList.push(dataA.moves[i].move.url);
         typeList.push(" ");
@@ -157,20 +152,8 @@ function App(){
           for(let i = 0; i < dataA.moves.length; i++){
             newList.push((result[i].data.type.name).toUpperCase());
           }
-          console.log(newList);
           setMoveTypeList(newList);
         });
-    
-      console.log("newList");  
-      console.log(newList);
-      console.log("moveList");  
-      console.log(moveList);
-      console.log("URLList");
-      console.log(URLList);
-      console.log("typeList");
-      console.log(typeList);
-      console.log("moveTypeList");
-      console.log(moveTypeList);   
     })
   }
 
@@ -178,8 +161,9 @@ const renderMovesList = (dataA) => {
   return (
     <div className="learns">
       <ul className="nobullets">
-        {moveNameList.map((move, index) => (
-          <li key={index}>{firstUpper(dataA.name)} learns {firstUpper(move)} which is {grammarFixer(moveTypeList[index])} {moveTypeList[index]} type move.</li>
+        {moveNameList.map((move, index) => (false /*console.log(pokemonDataB[0].types[0].type.name)*///MULTI[TYPES.indexOf(moveTypeList[index])][TYPES.indexOf(pokemonDataB[0].types[0].type.name)] > 1
+          ? <li className="boldlist" key={index}>{firstUpper(dataA.name)} learns {firstUpper(move)} which is {grammarFixer(moveTypeList[index])} {moveTypeList[index]} type move.</li>
+          : <li key={index}>{firstUpper(dataA.name)} learns {firstUpper(move)} which is {grammarFixer(moveTypeList[index])} {moveTypeList[index]} type move.</li>
         ))}
       </ul>
     </div>
@@ -219,7 +203,6 @@ const renderMovesList = (dataA) => {
             </label>
           </form>
           {pokemonDataB.map((data) => {
-            console.log(moveURL);
             return (
               <div className="container">
               <img src={data.sprites.other["official-artwork"]["front_default"]} height="120" width="120"/>
@@ -237,7 +220,6 @@ const renderMovesList = (dataA) => {
         {pokemonDataA.map((dataA) => {return(renderMovesList(dataA));})}
 
         {pokemonDataB.map((dataB) => {
-         console.log(dataB);
          if(dataB.types.length > 1){
           monType1 = dataB.types[0].type.name;
           monType2 = dataB.types[1].type.name;
