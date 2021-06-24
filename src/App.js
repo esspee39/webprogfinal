@@ -290,26 +290,28 @@ const renderMovesList = (dataA) => {
           var resistances = [];
           resistances = getDualResists(dataB.types[0].type.name, dataB.types[1].type.name);
           return (           
-            <div className="learns">             
-            <p>{firstUpper(dataB.name)} is {grammarFixer(dataB.types[0].type.name)} {firstUpper(dataB.types[0].type.name)}-type and {grammarFixer(dataB.types[1].type.name)} {firstUpper(dataB.types[1].type.name)}-type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[0]} the {TYPES[0]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[1]} the {TYPES[1]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[2]} the {TYPES[2]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[3]} the {TYPES[3]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[4]} the {TYPES[4]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[5]} the {TYPES[5]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[6]} the {TYPES[6]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[7]} the {TYPES[7]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[8]} the {TYPES[8]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[9]} the {TYPES[9]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[10]} the {TYPES[10]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[11]} the {TYPES[11]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[12]} the {TYPES[12]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[13]} the {TYPES[13]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[14]} the {TYPES[14]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[15]} the {TYPES[15]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[16]} the {TYPES[16]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[17]} the {TYPES[17]} type.</p>
+            <div className="learns">
+              <ul className="nobullets">             
+                <li>{firstUpper(dataB.name)} is {grammarFixer(dataB.types[0].type.name)} {firstUpper(dataB.types[0].type.name)}-type and {grammarFixer(dataB.types[1].type.name)} {firstUpper(dataB.types[1].type.name)}-type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[0]} the {TYPES[0]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[1]} the {TYPES[1]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[2]} the {TYPES[2]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[3]} the {TYPES[3]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[4]} the {TYPES[4]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[5]} the {TYPES[5]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[6]} the {TYPES[6]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[7]} the {TYPES[7]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[8]} the {TYPES[8]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[9]} the {TYPES[9]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[10]} the {TYPES[10]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[11]} the {TYPES[11]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[12]} the {TYPES[12]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[13]} the {TYPES[13]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[14]} the {TYPES[14]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[15]} the {TYPES[15]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[16]} the {TYPES[16]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[17]} the {TYPES[17]} type.</li>
+              </ul>
             </div>
           );
          }else{
@@ -318,26 +320,28 @@ const renderMovesList = (dataA) => {
           var resistances = [];
           resistances = getResists(dataB.types[0].type.name);
           return (
-            <div className="learns">              
-            <p>{firstUpper(dataB.name)} is {grammarFixer(dataB.types[0].type.name)} {firstUpper(dataB.types[0].type.name)}-type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[0]} the {TYPES[0]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[1]} the {TYPES[1]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[2]} the {TYPES[2]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[3]} the {TYPES[3]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[4]} the {TYPES[4]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[5]} the {TYPES[5]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[6]} the {TYPES[6]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[7]} the {TYPES[7]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[8]} the {TYPES[8]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[9]} the {TYPES[9]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[10]} the {TYPES[10]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[11]} the {TYPES[11]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[12]} the {TYPES[12]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[13]} the {TYPES[13]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[14]} the {TYPES[14]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[15]} the {TYPES[15]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[16]} the {TYPES[16]} type.</p>
-            <p>{firstUpper(dataB.name)} {resistances[17]} the {TYPES[17]} type.</p>
+            <div className="learns">
+              <ul className="nobullets">             
+                <li>{firstUpper(dataB.name)} is {grammarFixer(dataB.types[0].type.name)} {firstUpper(dataB.types[0].type.name)}-type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[0]} the {TYPES[0]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[1]} the {TYPES[1]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[2]} the {TYPES[2]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[3]} the {TYPES[3]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[4]} the {TYPES[4]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[5]} the {TYPES[5]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[6]} the {TYPES[6]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[7]} the {TYPES[7]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[8]} the {TYPES[8]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[9]} the {TYPES[9]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[10]} the {TYPES[10]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[11]} the {TYPES[11]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[12]} the {TYPES[12]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[13]} the {TYPES[13]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[14]} the {TYPES[14]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[15]} the {TYPES[15]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[16]} the {TYPES[16]} type.</li>
+                <li>{firstUpper(dataB.name)} {resistances[17]} the {TYPES[17]} type.</li>
+              </ul>
             </div>
           );
          }
