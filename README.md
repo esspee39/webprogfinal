@@ -1,4 +1,4 @@
-# REST API Application built using Create React App
+# REST API Application using PokeAPI
 ## 24 June 2021
 ## Owen Skinner
 ## (Adv) Web Programming
