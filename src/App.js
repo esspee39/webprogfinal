@@ -10,10 +10,10 @@ function getRandomID() {
 }
 
 function App(){
-  const [pokemonA, setPokemonA] = useState("pikachu");
+  const [pokemonA, setPokemonA] = useState("bulbasaur");
   const [pokemonDataA, setPokemonDataA] = useState([]);
 
-  const [pokemonB, setPokemonB] = useState("pikachu");
+  const [pokemonB, setPokemonB] = useState("bulbasaur");
   const [pokemonDataB, setPokemonDataB] = useState([]);
 
   const handleChangeA = (e) => {
@@ -37,8 +37,7 @@ function App(){
   const getPokemonA = async () => {
     const toArray = [];
     try {
-      const url = `https://pokeapi.co/api/v2/pokemon/${pokemonA}`;
-      const res = await axios.get(url);
+      const res = await axios.get(url+pokemonA);
       toArray.push(res.data);
       setPokemonDataA(toArray);
     } catch (e) {
@@ -49,8 +48,7 @@ function App(){
   const getPokemonB = async () => {
     const toArray = [];
     try {
-      const url = `https://pokeapi.co/api/v2/pokemon/${pokemonB}`;
-      const res = await axios.get(url);
+      const res = await axios.get(url+pokemonB);
       toArray.push(res.data);
       setPokemonDataB(toArray);
     } catch (e) {
