@@ -230,7 +230,6 @@ const renderMovesList = (dataA) => {
  
   return (
     <div className = "App">
-
       <div className="Mons">
         <div className="MonA">
           <form onSubmit={handleSubmitA}>
@@ -276,6 +275,7 @@ const renderMovesList = (dataA) => {
         <button onClick={handleButton}>
           Load Move Data
        </button>
+
         {pokemonDataA.map((dataA) => {return(renderMovesList(dataA));})}
 
         {pokemonDataB.map((dataB) => {
@@ -340,16 +340,12 @@ const renderMovesList = (dataA) => {
               </ul>
             </div>
           );
-         }
-            
+         }    
           })}
       </div>
-
     </div>
-    //
   );
 };
-
 
 function getResists(type){
   var typeID = TYPES.indexOf(type.toUpperCase());
@@ -378,9 +374,7 @@ function getResists(type){
   }
   return results;
 }
-
-
-    
+   
 function getDualResists(type1, type2){
   var typeID1 = TYPES.indexOf(type1.toUpperCase());
   var typeID2 = TYPES.indexOf(type2.toUpperCase());
@@ -409,9 +403,6 @@ function getDualResists(type1, type2){
   }
   return results;
 }
-
-
-
 
 //DEDICATED TO JOVIAN12
 function grammarFixer(type){
