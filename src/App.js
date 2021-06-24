@@ -8,8 +8,6 @@ const monURL = "https://pokeapi.co/api/v2/pokemon/";
 var monType1 = "";
 var monType2 = "";
 
-var currMoveType = "";
-
 var moveURL;
 const NORMAL = 0;
 const FIGHTING = 1;
@@ -55,6 +53,12 @@ function getRandomID() {
 }
 
 function firstUpper(text){
+  if(text == undefined){
+    return text;
+  }
+  if(text[0] == undefined){
+    return text;
+  }
   if(text == null){
     return text;
   }
@@ -72,20 +76,10 @@ function App(){
   const [pokemonDataB, setPokemonDataB] = useState([]);
   const [moveType, setMoveType] = useState("");
 
-  useEffect(() => {
-    getMoveType()
-  }, [moveURL])
-
-  const getMoveType = () => {
-    axios.get(moveURL)
-    .then(response => {
-      console.log(response);
-      setMoveType(response.data.type.name);
-      currMoveType = moveType;
-      console.log("CURRENT TYPE"); 
-      console.log(currMoveType);  
-    })
-  }
+  const [moveNameList, setMoveNameList] = useState([]);
+  const [moveTypeList, setMoveTypeList] = useState([]);
+  const [moveURLList, setMoveURLList] = useState([]);
+  var moveIndex = 0;
 
   const handleChangeA = (e) => {
     setPokemonA(e.target.value.toLowerCase());
@@ -115,7 +109,6 @@ function App(){
     try {
       const res = await axios.get(monURL+pokemonA);
       toArray.push(res.data);
-      console.log(toArray);
       setPokemonDataA(toArray);
     } catch (e) {
       console.log(e);
@@ -132,6 +125,61 @@ function App(){
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    console.log("getMoveType triggered");
+    getMoveType();
+  }, [moveURL])
+
+  const getMoveType = async () => {
+    
+    const toArray = [];
+    try {
+      const response = await axios.get(moveURL);
+      toArray.push(response.data);
+      console.log(response.data.name);
+      moveNameList[moveIndex] = (response.data.name);
+      console.log(response.data.type.name);
+      moveTypeList[moveIndex] = (response.data.type.name);
+      setMoveType(response.data.type.name);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+
+const renderMovesList = (dataA) => {
+  var moveList = [];
+  var URLList = [];
+  var typeList = [];
+  for(let i = 0; i < dataA.moves.length; i++){
+    moveIndex = i;
+    console.log("moveIndex updated to:");
+    console.log(moveIndex);
+    console.log(dataA.moves[i].move.name);
+    moveURL = dataA.moves[i].move.url;
+    console.log("moveURL updated to:");
+    console.log(moveURL);
+    moveList.push(dataA.moves[i].move.name);
+    URLList.push(dataA.moves[i].move.url);
+    typeList.push(" ");
+  } 
+  console.log(moveList);
+  console.log(URLList);
+  typeList[6] = moveTypeList[6];
+  console.log(typeList);
+  console.log(moveTypeList);
+  
+  return (
+    <div className="learns">
+      <ul>
+        {moveList.map((move, index) => (
+          <li key={index}>{firstUpper(dataA.name)} learns {firstUpper(move)} which is {grammarFixer(typeList[index])} {firstUpper(typeList[index])}-type move.</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
   //const getMoveList = moveNameList => moveNameList.map(move => (
   //  <li key={move.id}>{move.name}</li>
@@ -192,7 +240,7 @@ function App(){
         <button onClick={handleButton}>
           Generate Data
        </button>
-        {pokemonDataA.map((dataA) => {return(buildMoveList(dataA, moveType));})}
+        {pokemonDataA.map((dataA) => {return(renderMovesList(dataA));})}
 
         {pokemonDataB.map((dataB) => {
          console.log(dataB);
@@ -209,8 +257,7 @@ function App(){
           monType1 = dataB.types[0].type.name;
           monType2 = "none";
           return (
-            <div className="learns">
-              
+            <div className="learns">              
             {firstUpper(dataB.name)} is {grammarFixer(dataB.types[0].type.name)} {firstUpper(dataB.types[0].type.name)}-type.
             </div>
           );
@@ -224,50 +271,20 @@ function App(){
   );
 };
 
-async function getNewMoveType(){
-  currMoveType = await axios.get(moveURL)
-    .then(response => {
-      console.log(response.data.name);
-      currMoveType = response.data.type.name;
-      console.log(currMoveType);  
-    })
-}
 
-function buildMoveList(dataA){
-  var moveNameList = [];
-  var moveTypeList = [];
-  var newType;
-    for(let i = 0; i < dataA.moves.length; i++){
-      console.log(dataA.moves[i].move.name);
-      moveURL = dataA.moves[i].move.url;
-      newType = "test";
-      getNewMoveType();
-      newType = currMoveType;
-      console.log("type");
-      console.log(currMoveType);
-      moveNameList.push(firstUpper(dataA.moves[i].move.name));
-      moveTypeList.push(firstUpper("ice"));
-    } 
-    console.log(moveNameList);
-    console.log(moveTypeList);
 
-    return renderMovesList(dataA, moveNameList, moveTypeList);
-}
 
-function renderMovesList(dataA, moveNameList, moveTypeList){
-    return (
-      <div className="learns">
-        <ul>
-          {moveNameList.map((move, index) => (
-            <li key={index}>{firstUpper(dataA.name)} learns {move} which is {grammarFixer(moveTypeList[index])} {firstUpper(moveTypeList[index])}-type move.</li>
-          ))}
-        </ul>
-      </div>
-    );
-}
+
+
 
 //DEDICATED TO JOVIAN12
 function grammarFixer(type){
+  if(type == undefined){
+    return;
+  }
+  if(type[0] == undefined){
+    return;
+  }
   if(type[0].toUpperCase() == "I" || type[0].toUpperCase() == "E"){
     return "an";
   }else{

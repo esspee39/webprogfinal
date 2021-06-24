@@ -8,5 +8,12 @@
   }
 
   .flipped{
+    margin-left: 12px;
+    margin-right: 36px;
     transform: scaleX(-1);
+  }
+
+  .img{
+    margin-left: 36px;
+    margin-right: 12px;
   }
