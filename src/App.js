@@ -1,4 +1,4 @@
-import logo from './nuwo.png';
+import bg from './dex.png';
 import React, { useState, useEffect } from "react";
 import './App.css';
 import axios from "axios";
@@ -69,12 +69,20 @@ function firstUpper(text){
   return newText;
 }
 
+function useForceUpdate(){
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue(value => value + 1); // update the state to force render
+}
+
 function App(){
+
   const [pokemonA, setPokemonA] = useState("");
   const [pokemonDataA, setPokemonDataA] = useState([]);
   const [pokemonB, setPokemonB] = useState("");
   const [pokemonDataB, setPokemonDataB] = useState([]);
   const [moveType, setMoveType] = useState("");
+
+  const forceUpdate = useForceUpdate();
 
   const [moveNameList, setMoveNameList] = useState([]);
   const [moveTypeList, setMoveTypeList] = useState([]);
@@ -92,6 +100,7 @@ function App(){
 
   const handleButton = (e) => {
     e.preventDefault();
+    forceUpdate();
     console.log("BUTTON PUSHED");
   };
 
@@ -131,8 +140,8 @@ function App(){
     getMoveType();
   }, [moveURL])
 
+
   const getMoveType = async () => {
-    
     const toArray = [];
     try {
       const response = await axios.get(moveURL);
@@ -146,7 +155,6 @@ function App(){
       console.log(e);
     }
   };
-
 
 const renderMovesList = (dataA) => {
   var moveList = [];
@@ -164,29 +172,42 @@ const renderMovesList = (dataA) => {
     URLList.push(dataA.moves[i].move.url);
     typeList.push(" ");
   } 
+  //getPromisesList(URLList, dataA);
+  
+  var promises = [];
+  for(let i = 0; i < dataA.moves.length; i++){
+    promises.push(axios.get(URLList[i]));
+  }
+  var newList = [];
+  Promise.all(promises)
+    .then(function (result){
+      for(let i = 0; i < dataA.moves.length; i++){
+        newList.push(result[i].data.type.name);
+      }
+      console.log(newList);
+    });
+
+  console.log("newList");  
+  console.log(newList);
+  console.log("moveList");  
   console.log(moveList);
+  console.log("URLList");
   console.log(URLList);
-  typeList[6] = moveTypeList[6];
+  console.log("typeList");
   console.log(typeList);
+  console.log("moveTypeList");
   console.log(moveTypeList);
   
   return (
     <div className="learns">
-      <ul>
+      <ul className="nobullets">
         {moveList.map((move, index) => (
-          <li key={index}>{firstUpper(dataA.name)} learns {firstUpper(move)} which is {grammarFixer(typeList[index])} {firstUpper(typeList[index])}-type move.</li>
+          <li key={index}>{firstUpper(dataA.name)} learns {firstUpper(move)} which is {grammarFixer(newList[index])} {firstUpper(newList[index])}-type move.</li>
         ))}
       </ul>
     </div>
   );
 }
-
-  //const getMoveList = moveNameList => moveNameList.map(move => (
-  //  <li key={move.id}>{move.name}</li>
-  //));
-
-  //console.log(pokemonDataA);
-  //console.log(pokemonDataB);
 
   //console.log("TEST TYPES:");
   //console.log(MULTI[ELECTRIC][GROUND]);
@@ -247,18 +268,57 @@ const renderMovesList = (dataA) => {
          if(dataB.types.length > 1){
           monType1 = dataB.types[0].type.name;
           monType2 = dataB.types[1].type.name;
+          var resistances = [];
+          resistances = getDualResists(dataB.types[0].type.name, dataB.types[1].type.name);
           return (           
-            <div className="learns">
-              
-            {firstUpper(dataB.name)} is {grammarFixer(dataB.types[0].type.name)} {firstUpper(dataB.types[0].type.name)}-type and {grammarFixer(dataB.types[1].type.name)} {firstUpper(dataB.types[1].type.name)}-type.
+            <div className="learns">             
+            <p>{firstUpper(dataB.name)} is {grammarFixer(dataB.types[0].type.name)} {firstUpper(dataB.types[0].type.name)}-type and {grammarFixer(dataB.types[1].type.name)} {firstUpper(dataB.types[1].type.name)}-type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[0]} the {TYPES[0]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[1]} the {TYPES[1]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[2]} the {TYPES[2]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[3]} the {TYPES[3]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[4]} the {TYPES[4]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[5]} the {TYPES[5]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[6]} the {TYPES[6]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[7]} the {TYPES[7]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[8]} the {TYPES[8]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[9]} the {TYPES[9]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[10]} the {TYPES[10]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[11]} the {TYPES[11]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[12]} the {TYPES[12]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[13]} the {TYPES[13]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[14]} the {TYPES[14]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[15]} the {TYPES[15]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[16]} the {TYPES[16]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[17]} the {TYPES[17]} type.</p>
             </div>
           );
          }else{
           monType1 = dataB.types[0].type.name;
           monType2 = "none";
+          var resistances = [];
+          resistances = getResists(dataB.types[0].type.name);
           return (
             <div className="learns">              
-            {firstUpper(dataB.name)} is {grammarFixer(dataB.types[0].type.name)} {firstUpper(dataB.types[0].type.name)}-type.
+            <p>{firstUpper(dataB.name)} is {grammarFixer(dataB.types[0].type.name)} {firstUpper(dataB.types[0].type.name)}-type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[0]} the {TYPES[0]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[1]} the {TYPES[1]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[2]} the {TYPES[2]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[3]} the {TYPES[3]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[4]} the {TYPES[4]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[5]} the {TYPES[5]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[6]} the {TYPES[6]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[7]} the {TYPES[7]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[8]} the {TYPES[8]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[9]} the {TYPES[9]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[10]} the {TYPES[10]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[11]} the {TYPES[11]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[12]} the {TYPES[12]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[13]} the {TYPES[13]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[14]} the {TYPES[14]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[15]} the {TYPES[15]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[16]} the {TYPES[16]} type.</p>
+            <p>{firstUpper(dataB.name)} {resistances[17]} the {TYPES[17]} type.</p>
             </div>
           );
          }
@@ -272,7 +332,64 @@ const renderMovesList = (dataA) => {
 };
 
 
+function getResists(type){
+  var typeID = TYPES.indexOf(type.toUpperCase());
+  var results = [];
+  for(var i = 0; i < TYPES.length; i++){
+    switch(MULTI[i][typeID]){
+      case 4:
+        results[i] = "is very weak to"
+        break;
+      case 2:
+        results[i] = "is weak to";
+        break;
+      case 1:
+        results[i] = "is damaged normally by";
+        break;
+      case .5:
+        results[i] = "resists";
+        break;
+      case .25:
+        results[i] = "greatly resists";
+        break;
+      case 0:
+        results[i] = "is immune to";
+        break;
+    }
+  }
+  return results;
+}
 
+
+    
+function getDualResists(type1, type2){
+  var typeID1 = TYPES.indexOf(type1.toUpperCase());
+  var typeID2 = TYPES.indexOf(type2.toUpperCase());
+  var results = [];
+  for(var i = 0; i < TYPES.length; i++){
+    switch(MULTI[i][typeID1] * MULTI[i][typeID2]){
+      case 4:
+        results[i] = "is very weak to"
+        break;
+      case 2:
+        results[i] = "is weak to";
+        break;
+      case 1:
+        results[i] = "is damaged normally by";
+        break;
+      case .5:
+        results[i] = "resists";
+        break;
+      case .25:
+        results[i] = "greatly resists";
+        break;
+      case 0:
+        results[i] = "is immune to";
+        break;
+    }
+  }
+  return results;
+}
 
 
 

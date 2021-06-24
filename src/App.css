@@ -8,6 +8,10 @@
   justify-content: space-around;
 }
 
+.nobullets{
+  list-style-type: none;
+}
+
 .MonA {
   float: left;
 }
