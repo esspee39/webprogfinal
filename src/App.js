@@ -77,7 +77,7 @@ function App(){
         {pokemonDataA.map((data) => {
           return (
             <div className="container">
-             <img src={data.sprites["front_default"]} />
+             <img src={data.sprites.other["official-artwork"]["front_default"]} height="120" width="120"/>
             </div>
           );
         })}
@@ -96,7 +96,7 @@ function App(){
         {pokemonDataB.map((data) => {
           return (
             <div className="container">
-             <img src={data.sprites["front_default"]} />
+             <img src={data.sprites.other["official-artwork"]["front_default"]} height="120" width="120"/>
             </div>
           );
         })}
