@@ -7,7 +7,7 @@ function Banner(){
     <div className = "Banner">
       <h4>
       <img className="flipped" src ={logo} height="60" width="60"/>
-      Owen's Pokemon App
+      Owen's PokeAPI App
       <img className ="img" src ={logo} height="60" width="60" />
       </h4>
     </div>
