@@ -155,7 +155,7 @@ function App(){
       Promise.all(promises)
         .then(function (result){
           for(let i = 0; i < dataA.moves.length; i++){
-            newList.push(result[i].data.type.name);
+            newList.push((result[i].data.type.name).toUpperCase());
           }
           console.log(newList);
           setMoveTypeList(newList);
@@ -221,16 +221,12 @@ const renderMovesList = (dataA) => {
     <div className="learns">
       <ul className="nobullets">
         {moveNameList.map((move, index) => (
-          <li key={index}>{firstUpper(dataA.name)} learns {firstUpper(move)} which is {grammarFixer(moveTypeList[index])} {firstUpper(moveTypeList[index])}-type move.</li>
+          <li key={index}>{firstUpper(dataA.name)} learns {firstUpper(move)} which is {grammarFixer(moveTypeList[index])} {moveTypeList[index]} type move.</li>
         ))}
       </ul>
     </div>
   );
 }
-
-  //console.log("TEST TYPES:");
-  //console.log(MULTI[ELECTRIC][GROUND]);
-  //console.log(MULTI[ELECTRIC][FLYING]*MULTI[ELECTRIC][ELECTRIC]);
  
   return (
     <div className = "App">
@@ -292,7 +288,7 @@ const renderMovesList = (dataA) => {
           return (           
             <div className="learns">
               <ul className="nobullets">             
-                <li>{firstUpper(dataB.name)} is {grammarFixer(dataB.types[0].type.name)} {firstUpper(dataB.types[0].type.name)}-type and {grammarFixer(dataB.types[1].type.name)} {firstUpper(dataB.types[1].type.name)}-type.</li>
+                <li>{firstUpper(dataB.name)} is {grammarFixer(dataB.types[0].type.name)} {dataB.types[0].type.name.toUpperCase()} type and {grammarFixer(dataB.types[1].type.name)} {(dataB.types[1].type.name).toUpperCase()} type.</li>
                 <li>{firstUpper(dataB.name)} {resistances[0]} the {TYPES[0]} type.</li>
                 <li>{firstUpper(dataB.name)} {resistances[1]} the {TYPES[1]} type.</li>
                 <li>{firstUpper(dataB.name)} {resistances[2]} the {TYPES[2]} type.</li>
@@ -322,7 +318,7 @@ const renderMovesList = (dataA) => {
           return (
             <div className="learns">
               <ul className="nobullets">             
-                <li>{firstUpper(dataB.name)} is {grammarFixer(dataB.types[0].type.name)} {firstUpper(dataB.types[0].type.name)}-type.</li>
+                <li>{firstUpper(dataB.name)} is {grammarFixer(dataB.types[0].type.name)} {dataB.types[0].type.name.toUpperCase()} type.</li>
                 <li>{firstUpper(dataB.name)} {resistances[0]} the {TYPES[0]} type.</li>
                 <li>{firstUpper(dataB.name)} {resistances[1]} the {TYPES[1]} type.</li>
                 <li>{firstUpper(dataB.name)} {resistances[2]} the {TYPES[2]} type.</li>
