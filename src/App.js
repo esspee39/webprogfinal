@@ -69,28 +69,21 @@ function firstUpper(text){
   return newText;
 }
 
-function useForceUpdate(){
-  const [value, setValue] = useState(0); // integer state
-  return () => setValue(value => value + 1); // update the state to force render
-}
-
 function App(){
 
   const [pokemonA, setPokemonA] = useState("");
   const [pokemonDataA, setPokemonDataA] = useState([]);
   const [pokemonB, setPokemonB] = useState("");
   const [pokemonDataB, setPokemonDataB] = useState([]);
-  const [moveType, setMoveType] = useState("");
-
-  const forceUpdate = useForceUpdate();
 
   const [moveNameList, setMoveNameList] = useState([]);
   const [moveTypeList, setMoveTypeList] = useState([]);
-  const [moveURLList, setMoveURLList] = useState([]);
   var moveIndex = 0;
 
   const handleChangeA = (e) => {
     setPokemonA(e.target.value.toLowerCase());
+    setMoveNameList([]);
+    setMoveTypeList([]);
   };
   
   const handleSubmitA = (e) => {
@@ -100,7 +93,7 @@ function App(){
 
   const handleButton = (e) => {
     e.preventDefault();
-    forceUpdate();
+    updateData();
     console.log("BUTTON PUSHED");
   };
 
@@ -135,28 +128,54 @@ function App(){
     }
   };
 
-  useEffect(() => {
-    console.log("getMoveType triggered");
-    getMoveType();
-  }, [moveURL])
-
-
-  const getMoveType = async () => {
-    const toArray = [];
-    try {
-      const response = await axios.get(moveURL);
-      toArray.push(response.data);
-      console.log(response.data.name);
-      moveNameList[moveIndex] = (response.data.name);
-      console.log(response.data.type.name);
-      moveTypeList[moveIndex] = (response.data.type.name);
-      setMoveType(response.data.type.name);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  function updateData(){
+    pokemonDataA.map((dataA) => {
+      var moveList = [];
+      var URLList = [];
+      var typeList = [];
+      for(let i = 0; i < dataA.moves.length; i++){
+        moveIndex = i;
+        console.log("moveIndex updated to:");
+        console.log(moveIndex);
+        console.log(dataA.moves[i].move.name);
+        moveURL = dataA.moves[i].move.url;
+        console.log("moveURL updated to:");
+        console.log(moveURL);
+        moveList.push(dataA.moves[i].move.name);
+        URLList.push(dataA.moves[i].move.url);
+        typeList.push(" ");
+      } 
+      setMoveNameList(moveList);
+      
+      var promises = [];
+      for(let i = 0; i < dataA.moves.length; i++){
+        promises.push(axios.get(URLList[i]));
+      }
+      var newList = [];
+      Promise.all(promises)
+        .then(function (result){
+          for(let i = 0; i < dataA.moves.length; i++){
+            newList.push(result[i].data.type.name);
+          }
+          console.log(newList);
+          setMoveTypeList(newList);
+        });
+    
+      console.log("newList");  
+      console.log(newList);
+      console.log("moveList");  
+      console.log(moveList);
+      console.log("URLList");
+      console.log(URLList);
+      console.log("typeList");
+      console.log(typeList);
+      console.log("moveTypeList");
+      console.log(moveTypeList);   
+    })
+  }
 
 const renderMovesList = (dataA) => {
+  /*
   var moveList = [];
   var URLList = [];
   var typeList = [];
@@ -197,12 +216,12 @@ const renderMovesList = (dataA) => {
   console.log(typeList);
   console.log("moveTypeList");
   console.log(moveTypeList);
-  
+  */
   return (
     <div className="learns">
       <ul className="nobullets">
-        {moveList.map((move, index) => (
-          <li key={index}>{firstUpper(dataA.name)} learns {firstUpper(move)} which is {grammarFixer(newList[index])} {firstUpper(newList[index])}-type move.</li>
+        {moveNameList.map((move, index) => (
+          <li key={index}>{firstUpper(dataA.name)} learns {firstUpper(move)} which is {grammarFixer(moveTypeList[index])} {firstUpper(moveTypeList[index])}-type move.</li>
         ))}
       </ul>
     </div>
@@ -212,7 +231,7 @@ const renderMovesList = (dataA) => {
   //console.log("TEST TYPES:");
   //console.log(MULTI[ELECTRIC][GROUND]);
   //console.log(MULTI[ELECTRIC][FLYING]*MULTI[ELECTRIC][ELECTRIC]);
-
+ 
   return (
     <div className = "App">
 
@@ -259,7 +278,7 @@ const renderMovesList = (dataA) => {
 
       <div> 
         <button onClick={handleButton}>
-          Generate Data
+          Load Move Data
        </button>
         {pokemonDataA.map((dataA) => {return(renderMovesList(dataA));})}
 
