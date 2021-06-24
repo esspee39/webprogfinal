@@ -175,48 +175,6 @@ function App(){
   }
 
 const renderMovesList = (dataA) => {
-  /*
-  var moveList = [];
-  var URLList = [];
-  var typeList = [];
-  for(let i = 0; i < dataA.moves.length; i++){
-    moveIndex = i;
-    console.log("moveIndex updated to:");
-    console.log(moveIndex);
-    console.log(dataA.moves[i].move.name);
-    moveURL = dataA.moves[i].move.url;
-    console.log("moveURL updated to:");
-    console.log(moveURL);
-    moveList.push(dataA.moves[i].move.name);
-    URLList.push(dataA.moves[i].move.url);
-    typeList.push(" ");
-  } 
-  //getPromisesList(URLList, dataA);
-  
-  var promises = [];
-  for(let i = 0; i < dataA.moves.length; i++){
-    promises.push(axios.get(URLList[i]));
-  }
-  var newList = [];
-  Promise.all(promises)
-    .then(function (result){
-      for(let i = 0; i < dataA.moves.length; i++){
-        newList.push(result[i].data.type.name);
-      }
-      console.log(newList);
-    });
-
-  console.log("newList");  
-  console.log(newList);
-  console.log("moveList");  
-  console.log(moveList);
-  console.log("URLList");
-  console.log(URLList);
-  console.log("typeList");
-  console.log(typeList);
-  console.log("moveTypeList");
-  console.log(moveTypeList);
-  */
   return (
     <div className="learns">
       <ul className="nobullets">
